@@ -1,0 +1,26 @@
+name: build-and-run-giftcardreader
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main]
+jobs:
+  build-giftcardreader:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: egor-tensin/setup-gcc@v1
+        with:
+          # GCC version to install
+          version: latest
+          # Target platform
+          platform: x64
+          # Install Cygwin packages
+          cygwin: 0
+          # Set up cc/gcc/c++/g++ executables
+          cc: 1
+          # On Cygwin, replace executable symlinks with hardlinks
+          hardlinks: 0
+      - run: ./giftcardreader.c -o giftcardreader
+      - run: ./giftcardreader 
